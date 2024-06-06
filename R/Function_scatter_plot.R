@@ -126,7 +126,7 @@ ctk.scatter <- function(
       # Add to plot
       p <- p +
         geom_smooth(
-          fmla,
+          formula = y ~ x,
           method = "lm",
           color = cor_line_col,
           se = cor_se,
