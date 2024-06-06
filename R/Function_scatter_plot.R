@@ -101,45 +101,45 @@ ctk.scatter <- function(
     )
 
     # Correlation test
-      if (!isFALSE(cor)) {
-        # Fit model
-        var_x <- make.names(var_x)
-        var_y <- make.names(var_y)
-        fmla <- reformulate(termlabels = var_y, response = var_x)
-        if (cor == "lm") fit <- lm(fmla, data = df_sub)
+    if (!isFALSE(cor)) {
+      # Fit model
+      var_x <- make.names(var_x)
+      var_y <- make.names(var_y)
+      fmla <- reformulate(termlabels = var_y, response = var_x)
+      if (cor == "lm") fit <- lm(fmla, data = df_sub)
 
-        # Extract slope and intercept
-        slope <- coef(fit)[2]
-        intercept <- coef(fit)[1]
+      # Extract slope and intercept
+      slope <- coef(fit)[2]
+      intercept <- coef(fit)[1]
 
-        # Coefficients
-        correlation <- cor.test(df_sub[[var_x]], df_sub[[var_y]], method = cor_method)
-        r_value <- correlation$estimate
-        p_value <- correlation$p.value
+      # Coefficients
+      correlation <- cor.test(df_sub[[var_x]], df_sub[[var_y]], method = cor_method)
+      r_value <- correlation$estimate
+      p_value <- correlation$p.value
 
-        # Create annotation text
-        regression_eq <- paste0("y = ", round(slope, 2), "x + ", round(intercept, 2))
-        r_text <- paste0("r = ", round(r_value, 2))
-        p_text <- paste0("p-value = ", format.pval(p_value, digits = 3))
-        annotation <- paste(regression_eq, r_text, p_text, sep = "\n")
+      # Create annotation text
+      regression_eq <- paste0("y = ", round(slope, 2), "x + ", round(intercept, 2))
+      r_text <- paste0("r = ", round(r_value, 2))
+      p_text <- paste0("p-value = ", format.pval(p_value, digits = 3))
+      annotation <- paste(regression_eq, r_text, p_text, sep = "\n")
 
-        # Add to plot
-        p <- p +
-          geom_smooth(
-            fmla,
-            method = "lm",
-            color = cor_line_col,
-            se = cor_se,
-            fill = cor_se_col) +
-          annotate(
-            "text",
-            x = legend_position[1],
-            y = legend_position[2],
-            label = annotation,
-            hjust = "inward",
-            vjust = "inward"
-        )
-      }
+      # Add to plot
+      p <- p +
+        geom_smooth(
+          fmla,
+          method = "lm",
+          color = cor_line_col,
+          se = cor_se,
+          fill = cor_se_col) +
+        annotate(
+          "text",
+          x = legend_position[1],
+          y = legend_position[2],
+          label = annotation,
+          hjust = "inward",
+          vjust = "inward"
+      )
+    }
 
     # Add titles and labels
     if (!is.null(x_axis_label)) {
