@@ -1,28 +1,36 @@
-#' This function is used to create a scatter plot and calculate correlation.
+#' Create a Scatter Plot with Correlation
 #'
-#' @param df Data frame.
-#' @param var_x Name of the variable for x-axis.
-#' @param var_y Name of the variable for y-axis.
-#' @param title Title of the plot.
+#' This function creates a scatter plot with optional calculations of correlation
+#' and regression line. Additional customizations for axis limits, labels, titles,
+#' and minor ticks are available.
+#'
+#' @param df Data frame containing the variables to plot.
+#' @param var_x Name of the variable for the x-axis.
+#' @param var_y Name of the variable for the y-axis.
+#' @param title Main title of the plot.
 #' @param subtitle Subtitle of the plot.
-#' @param x_axis_label Label for x-axis.
-#' @param x_limits Limits for x-axis.
-#' @param y_axis_label Label for y-axis.
-#' @param y_limits Limits for y-axis.
-#' @param legend_position Position of the legend.
-#' @param pt_size Size of the points.
-#' @param cor Whether to calculate correlation. Default is "lm", can be "FALSE" to avoid calculation.
-#' @param cor_method Method for calculating correlation. Default is "pearson". One of "pearson", "kendall", or "spearman", can be abbreviated.
-#' @param cor_line_col Color for correlation line.
-#' @param cor_se Whether to show standard error for correlation line. Default is TRUE.
-#' @param cor_se_col Color for standard error of correlation line.
-#' @return Returns a ggplot2 plot object.
-#' @export
+#' @param x_axis_label Label for the x-axis.
+#' @param x_limits Limits for the x-axis (numeric vector of length 2).
+#' @param y_axis_label Label for the y-axis.
+#' @param y_limits Limits for the y-axis (numeric vector of length 2).
+#' @param legend_position Position of the legend annotation (numeric vector of length 2).
+#' @param pt_size Size of the scatter points.
+#' @param cor Whether to calculate correlation and display regression line. Default is "lm" for linear model, can be set to FALSE to avoid calculation.
+#' @param cor_method Method for calculating correlation. Default is "pearson". Other options are "kendall" or "spearman".
+#' @param cor_line_col Color for the correlation line.
+#' @param cor_se Whether to show standard error for the correlation line. Default is TRUE.
+#' @param cor_se_col Color for the standard error of the correlation line.
+#' @param minor_ticks Numeric vector of length 2, controlling the number of minor ticks on x and y axes respectively.
+#'
+#' @return A ggplot2 object representing the scatter plot.
+#'
 #' @examples
 #' library(CTKplot)
 #' df <- data.frame(x = rnorm(100), y = rnorm(100))
 #' ctk.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
-#' @import dplyr ggplot2 ggprism
+#'
+#' @import dplyr ggplot2 ggprism scales
+#' @export
 ctk.scatter <- function(
     df,
     var_x,
@@ -39,7 +47,8 @@ ctk.scatter <- function(
     cor_method = "pearson",
     cor_line_col = "firebrick2",
     cor_se = T,
-    cor_se_col = "gray"
+    cor_se_col = "gray",
+    minor_ticks = c(1, 1)
 ) {
   # Subset data
   df_sub <- select(df, all_of(c(var_x, var_y)))
@@ -70,6 +79,19 @@ ctk.scatter <- function(
     scale_x_continuous(limits = x_limits) +
     scale_y_continuous(limits = y_limits)
 
+  # Add minor ticks
+  if (!isFALSE(minor_ticks)) {
+    x_ticks <- pretty(x_limits)
+    x_interval <- diff(x_ticks)[1]
+    y_ticks <- pretty(y_limits)
+    y_interval <- diff(y_ticks)[1]
+
+    p <- p +
+      guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
+      scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
+      scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[1]))) +
+      theme(axis.minor.ticks.length = rel(0.5))
+  }
   # Correlation test
   if (!isFALSE(cor)) {
     # Fit model
