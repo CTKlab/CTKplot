@@ -165,7 +165,7 @@ ctk.scatter <- function(
     theme_prism(base_size = 12) +
     theme(plot.margin = unit(c(10, 10, 10, 10), "mm"),
           axis.ticks.length = unit(5, "pt"),
-          theme(axis.minor.ticks.length = rel(0.25)))
+          theme(axis.minor.ticks.length = rel(0.5)))
 
   if (!is.null(title)) {
     p <- p + theme(plot.title = element_text(hjust = 0))
