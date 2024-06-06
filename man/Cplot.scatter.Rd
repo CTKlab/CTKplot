@@ -48,7 +48,7 @@ Cplot.scatter(
 
 \item{cor}{Whether to calculate correlation. Default is "lm", can be "FALSE" to avoid calculation.}
 
-\item{cor_method}{Method for calculating correlation. Default is "pearson".}
+\item{cor_method}{Method for calculating correlation. Default is "pearson". One of "pearson", "kendall", or "spearman", can be abbreviated.}
 
 \item{cor_line_col}{Color for correlation line.}
 
@@ -63,6 +63,7 @@ Returns a ggplot2 plot object.
 This function is used to create a scatter plot and calculate correlation.
 }
 \examples{
+library(Cplot)
 df <- data.frame(x = rnorm(100), y = rnorm(100))
 Cplot.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
 }
