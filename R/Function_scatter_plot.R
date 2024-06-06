@@ -166,7 +166,7 @@ ctk.scatter <- function(
       theme(
         plot.margin = unit(c(10, 10, 10, 10), "mm"),
         axis.ticks.length = unit(5, "pt"),
-        axis.minor.ticks.length = rel(0.2)
+        axis.minor.ticks.length = rel(0.5)
       )
 
     if (!is.null(title)) {
