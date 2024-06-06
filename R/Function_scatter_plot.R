@@ -105,7 +105,7 @@ ctk.scatter <- function(
     var_x <- make.names(var_x)
     var_y <- make.names(var_y)
     fmla <- reformulate(termlabels = var_y, response = var_x)
-    if (cor == "lm") fit <- suppressMessages(lm(fmla, data = df_sub))
+    if (cor == "lm") fit <- lm(fmla, data = df_sub)
 
     # Extract slope and intercept
     slope <- coef(fit)[2]
@@ -123,20 +123,22 @@ ctk.scatter <- function(
     annotation <- paste(regression_eq, r_text, p_text, sep = "\n")
 
     # Add to plot
-    p <- p +
-      geom_smooth(
-        method = "lm",
-        color = cor_line_col,
-        se = cor_se,
-        fill = cor_se_col) +
-      annotate(
-        "text",
-        x = legend_position[1],
-        y = legend_position[2],
-        label = annotation,
-        hjust = "inward",
-        vjust = "inward"
-      )
+    p <- suppressMessages(
+      p +
+        geom_smooth(
+          method = "lm",
+          color = cor_line_col,
+          se = cor_se,
+          fill = cor_se_col) +
+        annotate(
+          "text",
+          x = legend_position[1],
+          y = legend_position[2],
+          label = annotation,
+          hjust = "inward",
+          vjust = "inward"
+        )
+    )
   }
 
   # Add titles and labels
@@ -162,6 +164,7 @@ ctk.scatter <- function(
     scale_fill_prism("floral") +
     theme_prism(base_size = 12) +
     theme(plot.margin = unit(c(10, 10, 10, 10), "mm"),
+          axis.ticks.length = unit(5, "pt"),
           theme(axis.minor.ticks.length = rel(0.25)))
 
   if (!is.null(title)) {
