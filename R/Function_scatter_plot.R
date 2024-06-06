@@ -19,9 +19,9 @@
 #' @return Returns a ggplot2 plot object.
 #' @export
 #' @examples
-#' library(Cplot)
+#' library(CTKplot)
 #' df <- data.frame(x = rnorm(100), y = rnorm(100))
-#' Cplot.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
+#' ctk.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
 #' @import dplyr ggplot2 ggprism
 ctk.scatter <- function(
     df,
@@ -131,7 +131,6 @@ ctk.scatter <- function(
   p <- p +
     scale_color_prism("floral") +
     scale_fill_prism("floral") +
-    ggprism::guides(x = "prism_minor", y = "prism_minor") +
     theme_prism(base_size = 12) +
     theme(plot.margin = unit(c(10, 10, 10, 10), "mm"))
 

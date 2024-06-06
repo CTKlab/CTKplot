@@ -63,7 +63,7 @@ Returns a ggplot2 plot object.
 This function is used to create a scatter plot and calculate correlation.
 }
 \examples{
-library(Cplot)
+library(CTKplot)
 df <- data.frame(x = rnorm(100), y = rnorm(100))
-Cplot.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
+ctk.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
 }
