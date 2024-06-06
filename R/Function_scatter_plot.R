@@ -23,7 +23,7 @@
 #' df <- data.frame(x = rnorm(100), y = rnorm(100))
 #' Cplot.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
 #' @import dplyr ggplot2 ggprism
-Cplot.scatter <- function(
+ctk.scatter <- function(
     df,
     var_x,
     var_y,

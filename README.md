@@ -1,27 +1,27 @@
-# Cplot
+# CTKplot
 
-Cplot is an R package for creating customized, publish-ready plot. It's under construction...
+CTKplot is an R package for creating customized, publish-ready plot. It's under construction...
 
 ## Installation
 
-You can install the latest version of Cplot from GitHub using `devtools`:
+You can install the latest version of CTKplot from GitHub using `devtools`:
 
 ```r
-devtools::install_github("CTKlab/Cplot")
+devtools::install_github("CTKlab/CTKplot")
 ```
 
 ## Usage
 
-To create a scatter plot with correlation analysis, use the `Cplot.scatter` function:
+To create a scatter plot with correlation analysis, use the `CTKplot.scatter` function:
 
 ```r
-library(Cplot)
+library(CTKplot)
 
 # Create a data frame
 df <- data.frame(x = rnorm(100), y = rnorm(100))
 
 # Create a scatter plot
-Cplot.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
+CTKplot.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
 ```
 
 For more information on how to use the package, please refer to the documentation.
