@@ -101,7 +101,6 @@ ctk.scatter <- function(
     )
 
     # Correlation test
-    suppressMessages(
       if (!isFALSE(cor)) {
         # Fit model
         var_x <- make.names(var_x)
@@ -127,6 +126,7 @@ ctk.scatter <- function(
         # Add to plot
         p <- p +
           geom_smooth(
+            fmla,
             method = "lm",
             color = cor_line_col,
             se = cor_se,
@@ -140,7 +140,6 @@ ctk.scatter <- function(
             vjust = "inward"
         )
       }
-    )
 
     # Add titles and labels
     if (!is.null(x_axis_label)) {
