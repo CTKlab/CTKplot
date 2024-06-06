@@ -92,10 +92,12 @@ ctk.scatter <- function(
     y_ticks <- pretty(y_limits)
     y_interval <- diff(y_ticks)[1]
 
-    p <- p +
-      guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
-      scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
-      scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2])))
+    p <- suppressMessages(
+      p +
+        guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
+        scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
+        scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2])))
+    )
   }
   # Correlation test
   if (!isFALSE(cor)) {
@@ -103,7 +105,7 @@ ctk.scatter <- function(
     var_x <- make.names(var_x)
     var_y <- make.names(var_y)
     fmla <- reformulate(termlabels = var_y, response = var_x)
-    if (cor == "lm") fit <- lm(fmla, data = df_sub)
+    if (cor == "lm") fit <- suppressMessages(lm(fmla, data = df_sub))
 
     # Extract slope and intercept
     slope <- coef(fit)[2]
