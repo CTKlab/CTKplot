@@ -50,6 +50,12 @@ ctk.scatter <- function(
     cor_se_col = "gray",
     minor_ticks = c(1, 1)
 ) {
+  # Check
+  ggplot2_version <- utils::packageVersion("ggplot2")
+  if (ggplot2_version < "3.5.0") {
+    stop("This function requires ggplot2 version 3.5.0 or higher.")
+  }
+
   # Subset data
   df_sub <- select(df, all_of(c(var_x, var_y)))
 
@@ -89,8 +95,7 @@ ctk.scatter <- function(
     p <- p +
       guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
       scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
-      scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[1]))) +
-      theme(axis.minor.ticks.length = rel(0.5))
+      scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2])))
   }
   # Correlation test
   if (!isFALSE(cor)) {
@@ -154,7 +159,8 @@ ctk.scatter <- function(
     scale_color_prism("floral") +
     scale_fill_prism("floral") +
     theme_prism(base_size = 12) +
-    theme(plot.margin = unit(c(10, 10, 10, 10), "mm"))
+    theme(plot.margin = unit(c(10, 10, 10, 10), "mm"),
+          theme(axis.minor.ticks.length = rel(0.5)))
 
   if (!is.null(title)) {
     p <- p + theme(plot.title = element_text(hjust = 0))
