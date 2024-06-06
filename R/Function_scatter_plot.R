@@ -131,7 +131,7 @@ ctk.scatter <- function(
   p <- p +
     scale_color_prism("floral") +
     scale_fill_prism("floral") +
-    guides(x = "prism_minor", y = "prism_minor") +
+    ggprism::guides(x = "prism_minor", y = "prism_minor") +
     theme_prism(base_size = 12) +
     theme(plot.margin = unit(c(10, 10, 10, 10), "mm"))
 
