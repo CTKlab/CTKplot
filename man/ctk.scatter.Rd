@@ -2,7 +2,7 @@
 % Please edit documentation in R/Function_scatter_plot.R
 \name{ctk.scatter}
 \alias{ctk.scatter}
-\title{This function is used to create a scatter plot and calculate correlation.}
+\title{Create a Scatter Plot with Correlation}
 \usage{
 ctk.scatter(
   df,
@@ -20,50 +20,56 @@ ctk.scatter(
   cor_method = "pearson",
   cor_line_col = "firebrick2",
   cor_se = T,
-  cor_se_col = "gray"
+  cor_se_col = "gray",
+  minor_ticks = c(1, 1)
 )
 }
 \arguments{
-\item{df}{Data frame.}
+\item{df}{Data frame containing the variables to plot.}
 
-\item{var_x}{Name of the variable for x-axis.}
+\item{var_x}{Name of the variable for the x-axis.}
 
-\item{var_y}{Name of the variable for y-axis.}
+\item{var_y}{Name of the variable for the y-axis.}
 
-\item{title}{Title of the plot.}
+\item{title}{Main title of the plot.}
 
 \item{subtitle}{Subtitle of the plot.}
 
-\item{x_axis_label}{Label for x-axis.}
+\item{x_axis_label}{Label for the x-axis.}
 
-\item{x_limits}{Limits for x-axis.}
+\item{x_limits}{Limits for the x-axis (numeric vector of length 2).}
 
-\item{y_axis_label}{Label for y-axis.}
+\item{y_axis_label}{Label for the y-axis.}
 
-\item{y_limits}{Limits for y-axis.}
+\item{y_limits}{Limits for the y-axis (numeric vector of length 2).}
 
-\item{legend_position}{Position of the legend.}
+\item{legend_position}{Position of the legend annotation (numeric vector of length 2).}
 
-\item{pt_size}{Size of the points.}
+\item{pt_size}{Size of the scatter points.}
 
-\item{cor}{Whether to calculate correlation. Default is "lm", can be "FALSE" to avoid calculation.}
+\item{cor}{Whether to calculate correlation and display regression line. Default is "lm" for linear model, can be set to FALSE to avoid calculation.}
 
-\item{cor_method}{Method for calculating correlation. Default is "pearson". One of "pearson", "kendall", or "spearman", can be abbreviated.}
+\item{cor_method}{Method for calculating correlation. Default is "pearson". Other options are "kendall" or "spearman".}
 
-\item{cor_line_col}{Color for correlation line.}
+\item{cor_line_col}{Color for the correlation line.}
 
-\item{cor_se}{Whether to show standard error for correlation line. Default is TRUE.}
+\item{cor_se}{Whether to show standard error for the correlation line. Default is TRUE.}
 
-\item{cor_se_col}{Color for standard error of correlation line.}
+\item{cor_se_col}{Color for the standard error of the correlation line.}
+
+\item{minor_ticks}{Numeric vector of length 2, controlling the number of minor ticks on x and y axes respectively.}
 }
 \value{
-Returns a ggplot2 plot object.
+A ggplot2 object representing the scatter plot.
 }
 \description{
-This function is used to create a scatter plot and calculate correlation.
+This function creates a scatter plot with optional calculations of correlation
+and regression line. Additional customizations for axis limits, labels, titles,
+and minor ticks are available.
 }
 \examples{
 library(CTKplot)
 df <- data.frame(x = rnorm(100), y = rnorm(100))
 ctk.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
+
 }
