@@ -21,6 +21,7 @@ ctk.scatter(
   cor_line_col = "firebrick2",
   cor_se = T,
   cor_se_col = "gray",
+  ticks = c(5, 5),
   minor_ticks = c(1, 1)
 )
 }
@@ -56,6 +57,8 @@ ctk.scatter(
 \item{cor_se}{Whether to show standard error for the correlation line. Default is TRUE.}
 
 \item{cor_se_col}{Color for the standard error of the correlation line.}
+
+\item{ticks}{Numeric vector of length 2, controlling the number of ticks on x and y axes respectively.}
 
 \item{minor_ticks}{Numeric vector of length 2, controlling the number of minor ticks on x and y axes respectively.}
 }

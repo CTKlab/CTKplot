@@ -20,6 +20,7 @@
 #' @param cor_line_col Color for the correlation line.
 #' @param cor_se Whether to show standard error for the correlation line. Default is TRUE.
 #' @param cor_se_col Color for the standard error of the correlation line.
+#' @param ticks Numeric vector of length 2, controlling the number of ticks on x and y axes respectively.
 #' @param minor_ticks Numeric vector of length 2, controlling the number of minor ticks on x and y axes respectively.
 #'
 #' @return A ggplot2 object representing the scatter plot.
@@ -48,6 +49,7 @@ ctk.scatter <- function(
     cor_line_col = "firebrick2",
     cor_se = T,
     cor_se_col = "gray",
+    ticks = c(5, 5),
     minor_ticks = c(1, 1)
 ) {
   # Check
@@ -85,19 +87,16 @@ ctk.scatter <- function(
     scale_x_continuous(limits = x_limits) +
     scale_y_continuous(limits = y_limits)
 
-  # Add minor ticks
-  suppressMessages(
-    if (!isFALSE(minor_ticks)) {
-      x_ticks <- pretty(x_limits)
-      x_interval <- diff(x_ticks)[1]
-      y_ticks <- pretty(y_limits)
-      y_interval <- diff(y_ticks)[1]
-      p <- p +
-        guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
-        scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
-        scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2])))
-    }
-  )
+  # Ticks adjustment
+  x_ticks <- pretty(x_limits, n = ticks[1])
+  y_ticks <- pretty(y_limits, n = ticks[2])
+  x_interval <- diff(x_ticks)[1]
+  y_interval <- diff(y_ticks)[1]
+  p <- suppressMessages(
+    p +
+      guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
+      scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
+      scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2]))))
 
   # Correlation test
   if (!isFALSE(cor)) {
