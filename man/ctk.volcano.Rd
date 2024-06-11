@@ -23,10 +23,13 @@ ctk.volcano(
   pt_size = 2,
   pt_alpha = 0.5,
   Highlight = NULL,
-  legend = F,
+  force = 1,
+  nudge_x = 0,
+  nudge_y = 0,
   label = T,
   label_size = 3,
   overlaps = 50,
+  legend = F,
   ticks = c(5, 5),
   minor_ticks = c(1, 1),
   na_omit = T
@@ -37,7 +40,7 @@ ctk.volcano(
 
 \item{var_x}{A character string specifying the column name for the x-axis variable (e.g., log2 fold change).}
 
-\item{var_y}{A character string specifying the column name for the y-axis variable (e.g., p-value adjust).}
+\item{var_y}{A character string specifying the column name for the y-axis variable (e.g., p-value).}
 
 \item{Symbol}{An optional character string specifying the column name for gene symbols or identifiers.}
 
@@ -69,13 +72,19 @@ ctk.volcano(
 
 \item{Highlight}{An optional vector specifying the gene symbols or identifiers to be highlighted, or a numeric value specifying the number of top up/down-regulated genes to be highlighted.}
 
-\item{legend}{A logical value indicating whether to show the legend.}
+\item{force}{A numeric value specifying the force of repulsion between overlapping labels.}
+
+\item{nudge_x}{A numeric value specifying the horizontal adjustment for label positions.}
+
+\item{nudge_y}{A numeric value specifying the vertical adjustment for label positions.}
 
 \item{label}{A logical value indicating whether to label the highlighted points.}
 
 \item{label_size}{A numeric value specifying the size of the labels for highlighted points.}
 
 \item{overlaps}{A numeric value specifying the maximum number of overlapping labels allowed.}
+
+\item{legend}{A logical value indicating whether to show the legend.}
 
 \item{ticks}{A numeric vector of length 2, specifying the number of ticks for the x and y axes.}
 

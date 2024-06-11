@@ -5,7 +5,7 @@
 #'
 #' @param df A data frame containing the differential expression data.
 #' @param var_x A character string specifying the column name for the x-axis variable (e.g., log2 fold change).
-#' @param var_y A character string specifying the column name for the y-axis variable (e.g., p-value adjust).
+#' @param var_y A character string specifying the column name for the y-axis variable (e.g., p-value).
 #' @param Symbol An optional character string specifying the column name for gene symbols or identifiers.
 #' @param title An optional character string specifying the main title of the plot.
 #' @param subtitle An optional character string specifying the subtitle of the plot.
@@ -21,10 +21,13 @@
 #' @param pt_size A numeric value specifying the size of the points.
 #' @param pt_alpha A numeric value between 0 and 1, specifying the transparency of the points.
 #' @param Highlight An optional vector specifying the gene symbols or identifiers to be highlighted, or a numeric value specifying the number of top up/down-regulated genes to be highlighted.
-#' @param legend A logical value indicating whether to show the legend.
+#' @param force A numeric value specifying the force of repulsion between overlapping labels.
+#' @param nudge_x A numeric value specifying the horizontal adjustment for label positions.
+#' @param nudge_y A numeric value specifying the vertical adjustment for label positions.
 #' @param label A logical value indicating whether to label the highlighted points.
 #' @param label_size A numeric value specifying the size of the labels for highlighted points.
 #' @param overlaps A numeric value specifying the maximum number of overlapping labels allowed.
+#' @param legend A logical value indicating whether to show the legend.
 #' @param ticks A numeric vector of length 2, specifying the number of ticks for the x and y axes.
 #' @param minor_ticks A numeric vector of length 2, specifying the number of minor ticks for the x and y axes.
 #' @param na_omit A logical value indicating whether to remove rows with missing values.
@@ -64,10 +67,13 @@ ctk.volcano <- function(
     pt_size = 2,
     pt_alpha = 0.5,
     Highlight = NULL,
-    legend = F,
+    force = 1,
+    nudge_x = 0,
+    nudge_y = 0,
     label = T,
     label_size = 3,
     overlaps = 50,
+    legend = F,
     ticks = c(5, 5),
     minor_ticks = c(1, 1),
     na_omit = T
@@ -170,6 +176,9 @@ ctk.volcano <- function(
         aes(label = lab),
         min.segment.length = 0,
         box.padding = 0.5,
+        force = force,
+        nudge_x = nudge_x,
+        nudge_y = nudge_y,
         size = label_size,
         fontface = 2,
         max.overlaps = getOption("ggrepel.max.overlaps", default = overlaps),
