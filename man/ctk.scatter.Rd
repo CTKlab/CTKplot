@@ -22,7 +22,8 @@ ctk.scatter(
   cor_se = T,
   cor_se_col = "gray",
   ticks = c(5, 5),
-  minor_ticks = c(1, 1)
+  minor_ticks = c(1, 1),
+  na_omit = T
 )
 }
 \arguments{
@@ -61,6 +62,8 @@ ctk.scatter(
 \item{ticks}{Numeric vector of length 2, controlling the number of ticks on x and y axes respectively.}
 
 \item{minor_ticks}{Numeric vector of length 2, controlling the number of minor ticks on x and y axes respectively.}
+
+\item{na_omit}{A logical value indicating whether to remove rows with missing values.}
 }
 \value{
 A ggplot2 object representing the scatter plot.

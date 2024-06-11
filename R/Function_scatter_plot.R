@@ -22,6 +22,7 @@
 #' @param cor_se_col Color for the standard error of the correlation line.
 #' @param ticks Numeric vector of length 2, controlling the number of ticks on x and y axes respectively.
 #' @param minor_ticks Numeric vector of length 2, controlling the number of minor ticks on x and y axes respectively.
+#' @param na_omit A logical value indicating whether to remove rows with missing values.
 #'
 #' @return A ggplot2 object representing the scatter plot.
 #'
@@ -50,7 +51,8 @@ ctk.scatter <- function(
     cor_se = T,
     cor_se_col = "gray",
     ticks = c(5, 5),
-    minor_ticks = c(1, 1)
+    minor_ticks = c(1, 1),
+    na_omit = T
 ) {
   # Check
   ggplot2_version <- utils::packageVersion("ggplot2")
@@ -62,7 +64,7 @@ ctk.scatter <- function(
   df_sub <- select(df, all_of(c(var_x, var_y)))
 
   # Remove NA rows
-  df_sub <- na.omit(df_sub)
+  if (na_omit) df_sub <- na.omit(df_sub)
 
   # Calculate parameter
   if (is.null(x_limits)) {
