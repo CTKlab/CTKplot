@@ -12,17 +12,11 @@ devtools::install_github("CTKlab/CTKplot")
 
 ## Usage
 
-To create a scatter plot with correlation analysis, use the `CTKplot.scatter` function:
-
 ```r
 library(CTKplot)
-
-# Create a data frame
-df <- data.frame(x = rnorm(100), y = rnorm(100))
-
-# Create a scatter plot
-CTKplot.scatter(df, "x", "y", title = "Scatter Plot", subtitle = "Sample Data")
 ```
+To create a scatter plot with correlation analysis, use the `ctk.scatter` function.
+To create a volcano plot, use the `ctk.volcano` function.
 
 For more information on how to use the package, please refer to the documentation.
 
