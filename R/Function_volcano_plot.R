@@ -164,14 +164,12 @@ ctk.volcano <- function(
   if (!is.null(Highlight)) {
     if (label) {
       center_x <- mean(df_sub$x)
-      center_y <- mean(y_nonzero)
+      center_y <- mean(df_sub$y)
       p <- p + geom_label_repel(
         data = HL_point,
         aes(label = lab),
         min.segment.length = 0,
         box.padding = 0.5,
-        nudge_x = center_x - df_sub$x,
-        nudge_y = center_y - df_sub$log_y,
         size = label_size,
         fontface = 2,
         max.overlaps = getOption("ggrepel.max.overlaps", default = overlaps),
