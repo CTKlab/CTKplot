@@ -83,6 +83,7 @@ ctk.volcano <- function(
   df_sub$x <- df[, var_x]
   df_sub$y <- df[, var_y]
   df_sub$log_y <- -log10(df_sub$y)
+  y_nonzero <- -log10(df_sub$y[df_sub$y > 0])
 
   # Add Symbol
   df_sub$lab <- row.names(df_sub)
@@ -97,7 +98,6 @@ ctk.volcano <- function(
   }
 
   if (is.null(y_limits)) {
-    y_nonzero <- -log10(df_sub$y[df_sub$y > 0])
     y_limits = c(min(y_nonzero), max(y_nonzero))
   }
 
@@ -163,11 +163,15 @@ ctk.volcano <- function(
   # Add highlight
   if (!is.null(Highlight)) {
     if (label) {
+      center_x <- mean(df_sub$x)
+      center_y <- mean(y_nonzero)
       p <- p + geom_label_repel(
         data = HL_point,
         aes(label = lab),
         min.segment.length = 0,
         box.padding = 0.5,
+        nudge_x = center_x - df_sub$x,
+        nudge_y = center_y - df_sub$log_y,
         size = label_size,
         fontface = 2,
         max.overlaps = getOption("ggrepel.max.overlaps", default = overlaps),
