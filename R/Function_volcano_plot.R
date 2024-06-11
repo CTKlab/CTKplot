@@ -79,7 +79,7 @@ ctk.volcano <- function(
   }
 
   # Subset data
-  df_sub <- as.data.frame(row.names(df))
+  df_sub <- df[0]
   df_sub$x <- df[, var_x]
   df_sub$y <- df[, var_y]
   df_sub$log_y <- -log10(df_sub$y)
@@ -87,7 +87,6 @@ ctk.volcano <- function(
   # Add Symbol
   df_sub$lab <- row.names(df_sub)
   if (!is.null(Symbol)) df_sub$lab <- df[, Symbol]
-
 
   # Remove NA rows
   if (na_omit) df_sub <- na.omit(df_sub)
