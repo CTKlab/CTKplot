@@ -11,5 +11,8 @@ LazyData: true
 Imports:
   dplyr,
   ggplot2,
-  ggprism
+  ggprism,
+  ggrepel,
+  scales,
+  rlang (>= 1.1.3)
 RoxygenNote: 7.3.1
