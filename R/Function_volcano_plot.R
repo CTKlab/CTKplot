@@ -158,9 +158,7 @@ ctk.volcano <- function(
   p <- df_sub %>%
     ggplot(aes(x = x, y = log_y, label = Symbol)) +
     geom_point(aes(color = type), size = pt_size, alpha = pt_alpha) +
-    scale_color_manual(values = cols) +
-    scale_x_continuous(limits = x_limits) +
-    scale_y_continuous(limits = y_limits)
+    scale_color_manual(values = cols)
 
   # Add lines
   if (Q_cut_line) p <- p + geom_hline(yintercept = -log10(Q_cut), linetype = "dashed")
@@ -203,8 +201,9 @@ ctk.volcano <- function(
   p <- suppressMessages(
     p +
       guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
-      scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
-      scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2]))))
+      scale_x_continuous(limits = x_limits, breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
+      scale_y_continuous(limits = y_limits, breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2])))
+  )
 
   # Add titles and labels
   if (!is.null(x_axis_label)) {
