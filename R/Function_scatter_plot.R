@@ -85,9 +85,7 @@ ctk.scatter <- function(
   # Scatter Plot
   p <- df_sub %>%
     ggplot(aes(x = !!sym(var_x), y = !!sym(var_y))) +
-    geom_point(size = pt_size) +
-    scale_x_continuous(limits = x_limits) +
-    scale_y_continuous(limits = y_limits)
+    geom_point(size = pt_size)
 
   # Ticks adjustment
   x_ticks <- pretty(x_limits, n = ticks[1])
@@ -97,8 +95,8 @@ ctk.scatter <- function(
   p <- suppressMessages(
     p +
       guides(x = guide_axis(minor.ticks = T), y = guide_axis(minor.ticks = T)) +
-      scale_x_continuous(breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
-      scale_y_continuous(breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2]))))
+      scale_x_continuous(limits = x_limits, breaks = x_ticks, minor_breaks = breaks_width(x_interval/(1 + minor_ticks[1]))) +
+      scale_y_continuous(limits = y_limits, breaks = y_ticks, minor_breaks = breaks_width(y_interval/(1 + minor_ticks[2]))))
 
   # Correlation test
   if (!isFALSE(cor)) {
